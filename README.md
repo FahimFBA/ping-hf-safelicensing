@@ -2,19 +2,16 @@
 
 This repository uses **GitHub Actions** to periodically ping a Hugging Face Space and prevent it from going idle due to inactivity.
 
----
 
 ## Target Space
 
 -> [https://fahimfba-safelicensing.hf.space/](https://fahimfba-safelicensing.hf.space/)
 
----
 
 ## Status
 
 ![Keep Alive](https://github.com/FahimFBA/ping-hf-safelicensing/actions/workflows/keep-alive.yml/badge.svg)
 
----
 
 ## Why This Exists
 
@@ -26,7 +23,6 @@ This leads to:
 *  Slow first response
 *  Poor user experience
 
----
 
 ## Solution
 
@@ -38,7 +34,6 @@ on:
     - cron: "*/5 * * * *"
 ```
 
----
 
 ## How It Works
 
@@ -46,7 +41,6 @@ on:
 * A `curl` request is sent to the Space URL
 * This keeps the Space "active" and prevents it from sleeping
 
----
 
 ## Workflow File
 
@@ -62,7 +56,6 @@ Core step:
 curl -L -s -o /dev/null -w "%{http_code}" https://fahimfba-safelicensing.hf.space/
 ```
 
----
 
 ## Features
 
@@ -72,7 +65,6 @@ curl -L -s -o /dev/null -w "%{http_code}" https://fahimfba-safelicensing.hf.spac
 *  Minimal resource usage
 *  Works on GitHub free tier
 
----
 
 ## Notes
 
@@ -80,7 +72,6 @@ curl -L -s -o /dev/null -w "%{http_code}" https://fahimfba-safelicensing.hf.spac
 * This prevents **idle sleep**, but not all types of shutdowns
 * Hugging Face infrastructure behavior may vary
 
----
 
 ## Manual Trigger
 
@@ -90,7 +81,6 @@ You can manually run the workflow:
 2. Select **Keep HF Space Alive**
 3. Click **Run workflow**
 
----
 
 ## Future Improvements
 
@@ -98,7 +88,6 @@ You can manually run the workflow:
 * Add retry/backoff logic
 * Monitor response latency
 
----
 
 ## Support
 
