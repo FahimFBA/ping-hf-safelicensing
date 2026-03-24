@@ -91,4 +91,4 @@ You can manually run the workflow:
 
 ## Support
 
-If you find this useful, consider giving the repo a star (:star:)!
+If you find this useful, consider giving the repo a star (⭐)!
