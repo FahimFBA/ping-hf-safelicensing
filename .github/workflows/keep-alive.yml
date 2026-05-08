@@ -2,7 +2,7 @@ name: Keep HF Space Alive
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 */40 * * *"
   workflow_dispatch:
 
 jobs:
