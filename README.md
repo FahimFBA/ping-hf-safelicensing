@@ -15,31 +15,31 @@ This repository uses **GitHub Actions** to periodically ping a Hugging Face Spac
 
 ## Why This Exists
 
-Free-tier Spaces on **Hugging Face** automatically go to sleep after a period of inactivity (typically ~5–15 minutes).
+Free-tier Spaces on **Hugging Face** automatically pause after **48 hours** of inactivity.
 
 This leads to:
 
-*  Cold starts
-*  Slow first response
-*  Poor user experience
+* Cold starts
+* Slow first response
+* Poor user experience
 
 
 ## Solution
 
-A scheduled **GitHub Action** runs every 5 minutes and sends a request to the Space:
+A scheduled **GitHub Action** runs every **40 hours** and sends a request to the Space — safely within the 48-hour inactivity window:
 
 ```yaml
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 */40 * * *"
 ```
 
 
 ## How It Works
 
-* GitHub Actions triggers a workflow every 5 minutes
+* GitHub Actions triggers a workflow every 40 hours
 * A `curl` request is sent to the Space URL
-* This keeps the Space "active" and prevents it from sleeping
+* This resets the inactivity timer and prevents the Space from pausing
 
 
 ## Workflow File
@@ -59,17 +59,17 @@ curl -L -s -o /dev/null -w "%{http_code}" https://fahimfba-safelicensing.hf.spac
 
 ## Features
 
-*  Runs automatically every 5 minutes
-*  Follows redirects (`-L`)
-*  Silent execution (`-s`)
-*  Minimal resource usage
-*  Works on GitHub free tier
+* Runs automatically every 40 hours
+* Follows redirects (`-L`)
+* Silent execution (`-s`)
+* Minimal resource usage — ~18 runs/month vs ~8,928 runs/month at 5-min interval
+* Works on GitHub free tier
 
 
 ## Notes
 
 * GitHub Actions scheduling is not exact (may vary by a few minutes)
-* This prevents **idle sleep**, but not all types of shutdowns
+* This prevents **idle pause**, but not all types of shutdowns
 * Hugging Face infrastructure behavior may vary
 
 
@@ -82,13 +82,11 @@ You can manually run the workflow:
 3. Click **Run workflow**
 
 
-## Future Improvements
+## Changelog
 
-* Add `/health` endpoint for lightweight checks
-* Add retry/backoff logic
-* Monitor response latency
+See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 
 ## Support
 
-If you find this useful, consider giving the repo a star (⭐)!
+If you find this useful, consider giving the repo a star ⭐!
